@@ -150,7 +150,7 @@ for(i in 1:length(unique(lineups_df$team))) {
 
    `team_drb%` = round(100*(sum(lineup_dat$team_drebs) / (sum(lineup_dat$team_drebs)+sum(lineup_dat$opp_orebs))))
    `team_orb%` = round(100*(sum(lineup_dat$team_orebs) / (sum(lineup_dat$team_orebs)+sum(lineup_dat$opp_drebs))))
-   `team_trb` = (sum(lineup_dat$team_drebs) + sum(lineup_dat$team_orebs)
+   `team_trb` = sum(lineup_dat$team_drebs) + sum(lineup_dat$team_orebs)
    `team_trb%` = round(100*((sum(lineup_dat$team_drebs) + sum(lineup_dat$team_orebs)) /
                             (sum(lineup_dat$team_drebs) + sum(lineup_dat$team_orebs) + sum(lineup_dat$opp_drebs) + sum(lineup_dat$opp_orebs))),2)
 
