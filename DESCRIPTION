@@ -4,7 +4,7 @@ Title: R package for European basketball data.
 Version: 0.1.0
 Authors@R: person("Bartosz", "Ziarkowski", email = "bziarkowski1@gmail.com", role = "cre")
 Description: Package euRobasket helps with downloading and analyzing data from
-    european basketball leagues.
+    european basketball leagues. Forked.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -14,4 +14,4 @@ Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
 
-Forked
+
