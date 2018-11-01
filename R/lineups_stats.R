@@ -201,7 +201,6 @@ for(i in 1:length(unique(lineups_df$team))) {
                         'DRtg',
                         'NetRtg',
                         'FGA',
-                        'FGM',
                         'FG%',
                         '3PA',
                         '3PM',
