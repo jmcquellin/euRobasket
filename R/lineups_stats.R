@@ -132,7 +132,7 @@ for(i in 1:length(unique(lineups_df$team))) {
     #calculate shooting stats
     team_fga = sum(lineup_dat$team_fga2) + sum(lineup_dat$team_fga3)
     
-    team_fgm = sum(lineup_dat$team_fgm2) + sum(lineup_dat$team_fgm3)
+    'team_fgm' = sum(lineup_dat$team_fgm2) + sum(lineup_dat$team_fgm3)
     
    `team_fg%` = round(100*((sum(lineup_dat$team_fgm2) +  sum(lineup_dat$team_fgm3))/team_fga),2)
 
@@ -171,7 +171,7 @@ for(i in 1:length(unique(lineups_df$team))) {
                           team_drtg,
                           team_netrtg,
                           team_fga,
-                          team_fgm,
+                          'team_fgm',
                           `team_fg%`,
                           `team_3p` = sum(lineup_dat$team_fga3),
                           `team_3pm` = sum(lineup_dat$team_fgm3),
