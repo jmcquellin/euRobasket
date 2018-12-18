@@ -46,8 +46,8 @@ home_counting = data.frame(team = stints.df$home_team,
                            opp_poss = stints.df$away_possesions,
                            team_fga2 = stints.df$home_2pt_fga,
                            team_fgm2 = stints.df$home_2pt_fgm,
-                           team_pfga = stints.df$home_patr_a
-                           team_pfgm = stints.df$home_patr_m
+                           team_pfga = stints.df$home_patr_a,
+                           team_pfgm = stints.df$home_patr_m,
                            team_fga3 = stints.df$home_3pt_fga,
                            team_fgm3 = stints.df$home_3pt_fgm,
                            team_fta = stints.df$home_fta,
@@ -85,8 +85,8 @@ away_counting = data.frame(team = stints.df$away_team,
                            opp_poss = stints.df$home_possesions,
                            team_fga2 = stints.df$away_2pt_fga,
                            team_fgm2 = stints.df$away_2pt_fgm,
-                           team_pfga = stints.df$away_patr_a
-                           team_pfgm = stints.df$away_patr_m
+                           team_pfga = stints.df$away_patr_a,
+                           team_pfgm = stints.df$away_patr_m,
                            team_fga3 = stints.df$away_3pt_fga,
                            team_fgm3 = stints.df$away_3pt_fgm,
                            team_fta = stints.df$away_fta,
