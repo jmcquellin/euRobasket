@@ -128,12 +128,18 @@ get_stint_data = function(start_row, end_row) {
   home_2pt_fgm = nrow(home_2pt[which(home_2pt$success == 1),])
   `home_2pt_fg%` = round((home_2pt_fgm/home_2pt_fga),2)
 
+  #points at the rim
+  home_patr = home_actions[which(home_actions$actionType == 'dunk', 'layup', 'alleyoop'),]
+  home_patr_a = nrow(home_patr)
+  home_patr_m = nrow(home_ptar[which(home_patr$success == 1),])
+  `home_patr_fg%`= round((home_patr_m/home_patr_m),2)
+
   #3pt
   home_3pt = home_actions[which(home_actions$actionType == '3pt'),]
   home_3pt_fga = nrow(home_3pt)
   home_3pt_fgm = nrow(home_3pt[which(home_3pt$success == 1),])
   `home_3pt_fg%`= round((home_3pt_fgm/home_3pt_fga),2)
-
+  
   #free throws
   home_fts = home_actions[which(home_actions$actionType == 'freethrow'),]
   home_fta = nrow(home_fts)
@@ -156,13 +162,16 @@ get_stint_data = function(start_row, end_row) {
 
   #pts scored home
   home_pts = (home_2pt_fgm*2) + (home_3pt_fgm*3) + home_ftm
-
+   
   #create data.frame with actions
   home = data.frame(cbind(
                           home_pts,
                           home_2pt_fgm,
                           home_2pt_fga,
                          `home_2pt_fg%`,
+                          home_patr_m,
+                          home_patr_a,
+                         'home_patr_fg%'
                           home_3pt_fgm,
                           home_3pt_fga,
                          `home_3pt_fg%`,
@@ -192,6 +201,12 @@ get_stint_data = function(start_row, end_row) {
   away_2pt_fgm = nrow(away_2pt[which(away_2pt$success == 1),])
   `away_2pt_fg%` = round((away_2pt_fgm/away_2pt_fga),2)
 
+  #points at the rim
+  away_patr = home_actions[which(away_actions$actionType == 'dunk', 'layup', 'alleyoop'),]
+  away_patr_a = nrow(away_patr)
+  away_patr_m = nrow(away_ptar[which(away_patr$success == 1),])
+  `away_patr_fg%`= round((away_patr_m/away_patr_m),2)
+   
   #3pt
   away_3pt = away_actions[which(away_actions$actionType == '3pt'),]
   away_3pt_fga = nrow(away_3pt)
@@ -227,6 +242,9 @@ get_stint_data = function(start_row, end_row) {
                           away_2pt_fgm,
                           away_2pt_fga,
                          `away_2pt_fg%`,
+                          away_patr_m,
+                          away_patr_a,
+                         'away_patr_fg%'
                           away_3pt_fgm,
                           away_3pt_fga,
                          `away_3pt_fg%`,
