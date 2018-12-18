@@ -46,6 +46,8 @@ home_counting = data.frame(team = stints.df$home_team,
                            opp_poss = stints.df$away_possesions,
                            team_fga2 = stints.df$home_2pt_fga,
                            team_fgm2 = stints.df$home_2pt_fgm,
+                           team_pfga = stints.df$home_patr_a
+                           team_pfgm = stints.df$home_patr_m
                            team_fga3 = stints.df$home_3pt_fga,
                            team_fgm3 = stints.df$home_3pt_fgm,
                            team_fta = stints.df$home_fta,
@@ -83,6 +85,8 @@ away_counting = data.frame(team = stints.df$away_team,
                            opp_poss = stints.df$home_possesions,
                            team_fga2 = stints.df$away_2pt_fga,
                            team_fgm2 = stints.df$away_2pt_fgm,
+                           team_pfga = stints.df$away_patr_a
+                           team_pfgm = stints.df$away_patr_m
                            team_fga3 = stints.df$away_3pt_fga,
                            team_fgm3 = stints.df$away_3pt_fgm,
                            team_fta = stints.df$away_fta,
@@ -134,6 +138,8 @@ for(i in 1:length(unique(lineups_df$team))) {
     
    `team_fg%` = round(100*((sum(lineup_dat$team_fgm2) +  sum(lineup_dat$team_fgm3))/team_fga),2)
 
+   'team_paint_fg%' = round(100*((sum(lineup_dat$team_pfgm)/sum(lineup_dat$team_pfga)))
+    
    `team_3p%` = round(100*(sum(lineup_dat$team_fgm3)/sum(lineup_dat$team_fga3)))
 
    `team_ft%` = round(100*(sum(lineup_dat$team_ftm)/sum(lineup_dat$team_fta)))
@@ -170,6 +176,9 @@ for(i in 1:length(unique(lineups_df$team))) {
                           team_netrtg,
                           team_fga,
                           `team_fg%`,
+                          team_pfga = sum(lineup_dat$team_pfga),
+                          team_pfgm = sum(lineup_dat$team_pfgm),
+                          'team_paint_fg%',
                           `team_3p` = sum(lineup_dat$team_fga3),
                           `team_3pm` = sum(lineup_dat$team_fgm3),
                           `team_3p%`,
@@ -202,6 +211,9 @@ for(i in 1:length(unique(lineups_df$team))) {
                         'NetRtg',
                         'FGA',
                         'FG%',
+                        'Shots at the rim',
+                        'Makes at the rim',
+                        'Rim FG%',
                         '3PA',
                         '3PM',
                         '3P%',
