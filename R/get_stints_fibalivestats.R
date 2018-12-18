@@ -244,7 +244,7 @@ get_stint_data = function(start_row, end_row) {
                          `away_2pt_fg%`,
                           away_patr_m,
                           away_patr_a,
-                         'away_patr_fg%'
+                         'away_patr_fg%',
                           away_3pt_fgm,
                           away_3pt_fga,
                          `away_3pt_fg%`,
