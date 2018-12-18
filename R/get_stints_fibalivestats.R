@@ -171,7 +171,7 @@ get_stint_data = function(start_row, end_row) {
                          `home_2pt_fg%`,
                           home_patr_m,
                           home_patr_a,
-                         'home_patr_fg%'
+                         'home_patr_fg%',
                           home_3pt_fgm,
                           home_3pt_fga,
                          `home_3pt_fg%`,
