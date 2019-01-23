@@ -138,7 +138,7 @@ for(i in 1:length(unique(lineups_df$team))) {
     
    `team_fg%` = round(100*((sum(lineup_dat$team_fgm2) +  sum(lineup_dat$team_fgm3))/team_fga),2)
 
-   `team_paint_fg%` = round(100*((sum(lineup_dat$team_pfgm)/sum(lineup_dat$team_pfga)))
+   `team_paint_fg%` = round(100*((sum(lineup_dat$team_pfgm)/sum(lineup_dat$team_pfga))))
     
    `team_3p%` = round(100*(sum(lineup_dat$team_fgm3)/sum(lineup_dat$team_fga3)))
 
