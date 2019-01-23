@@ -138,13 +138,13 @@ for(i in 1:length(unique(lineups_df$team))) {
     
    `team_fg%` = round(100*((sum(lineup_dat$team_fgm2) +  sum(lineup_dat$team_fgm3))/team_fga),2)
 
-   'team_paint_fg%' = round(100*((sum(lineup_dat$team_pfgm)/sum(lineup_dat$team_pfga)))
+   `team_paint_fg%` = round(100*((sum(lineup_dat$team_pfgm)/sum(lineup_dat$team_pfga)))
     
-   'team_3p%` = round(100*(sum(lineup_dat$team_fgm3)/sum(lineup_dat$team_fga3)))
+   `team_3p%` = round(100*(sum(lineup_dat$team_fgm3)/sum(lineup_dat$team_fga3)))
 
-   `team_ft%' = round(100*(sum(lineup_dat$team_ftm)/sum(lineup_dat$team_fta)))
+   `team_ft%` = round(100*(sum(lineup_dat$team_ftm)/sum(lineup_dat$team_fta)))
 
-   'team_ts%' = round(100*(sum(lineup_dat$team_pts)/(2*(team_fga + 0.44*sum(lineup_dat$team_fta)))),2)
+   `team_ts%` = round(100*(sum(lineup_dat$team_pts)/(2*(team_fga + 0.44*sum(lineup_dat$team_fta)))),2)
 
    `%fgm_as` = round(100*(sum(lineup_dat$team_ast)/(sum(lineup_dat$team_fgm2) +  sum(lineup_dat$team_fgm3))),2)
 
