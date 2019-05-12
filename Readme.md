@@ -8,7 +8,7 @@ fibalivestats.com, live.fibaeurope.com.
 # Installation
 
 ```R
-devtools::install_github('bziarkowski/euRobasket')
+devtools::install_github('jmcquellin/euRobasketAu')
 library(euRobasket)
 ```
 
