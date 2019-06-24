@@ -11,14 +11,14 @@
 #'@seealso \code{\link[euRobasket]{get_shots_data_livefibaeurope}}
 #'
 
+library(jsonlite)
 
-get_shots_data_fibalivestats = function(gameid) {
-
+gameid = 1110661
+get_shots_data_fibalivestats = function(gameid){
 
 #Load from fibalivestats.com
 url = paste('http://www.fibalivestats.com/data/',gameid,'/data.json', sep = '')
-dat = fromJSON(url)
-
+dat = fromJSON
 #extract shots
 
 shots_home = dat$tm$`1`$shot
@@ -29,6 +29,13 @@ shots_away$team = 'away'
 
 x_y = rbind(shots_home,
             shots_away)
+
+#get type of shot taken
+shots_type = dat$tm$`1`$shot$subType
+
+#get value of shot
+
+shots_value = dat$tm$`1`$shot$actionType
 
 #remove numbers from players names
 x_y$player = gsub('[0-9]', '', x_y$player)
@@ -44,12 +51,13 @@ shots2 = x_y[x_y$x>50,]
 shots2$x = 50-(shots2$x-50)
 shots1$y = 50-(shots1$y-50)
 
+
 shots = rbind(shots1, shots2)
 
 shots$new_x = shots$y
 shots$new_y = shots$x
 
-shots = shots[, c('r', 'per', 'new_x', 'new_y', 'player', 'team')]
+shots = shots[, c('r', 'per', 'new_x', 'new_y', 'player', 'team', 'subType','actionType' )]
 
 
 shots$new_x = shots$new_x*15.5
@@ -57,7 +65,7 @@ shots$new_y = shots$new_y*26.5
 
 #change column names
 
-colnames(shots) = c('outcome','quarter', 'x', 'y', 'player','team')
+colnames(shots) = c('outcome','quarter', 'x', 'y', 'player','team', 'type', 'points')
 
 #convert column `outcome` to factor
 
@@ -69,7 +77,10 @@ shots$outcome = factor(shots$outcome,
 shots$team[shots$team=='home'] = dat$tm$`1`$shortName
 shots$team[shots$team=='away'] = dat$tm$`2`$shortName
 
+
+
+
+
 return(shots)
 
 }
-
