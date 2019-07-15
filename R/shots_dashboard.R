@@ -323,7 +323,7 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
         
         plot = ggplot(shots, aes(x=x, y=y)) +
           annotation_custom(court) +
-          geom_point(aes(colour = outcome))
+          geom_point(aes(colour = outcome)) +
         xlim(-60, 1570) +
           ylim(-10, 1100) +
           coord_fixed() +
@@ -691,7 +691,7 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
           
           plot = ggplot(shots, aes(x=x, y=y)) +
             annotation_custom(court) +
-            geom_point(aes(colour = outcome))
+            geom_point(aes(colour = outcome)) + 
             xlim(-60, 1570) +
             ylim(-10, 1100) +
             coord_fixed() +
