@@ -11,14 +11,13 @@
 #'@seealso \code{\link[euRobasket]{get_shots_data_livefibaeurope}}
 #'
 
-library(jsonlite)
+get_shots_data_fibalivestats = function(gameid) {
 
-gameid = 1110661
-get_shots_data_fibalivestats = function(gameid){
 
 #Load from fibalivestats.com
 url = paste('http://www.fibalivestats.com/data/',gameid,'/data.json', sep = '')
-dat = fromJSON
+dat = fromJSON(url)
+
 #extract shots
 
 shots_home = dat$tm$`1`$shot
