@@ -1,4 +1,3 @@
-
 #'Create dashboard to visualize shots
 #'
 #'This function creates dashboard from shots data loaded with get_shots_data_livefibaeurope()
@@ -298,7 +297,7 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
       #subset shots
       
       shots = dat[dat$player == name & dat$team == team,]
-      names(shots)[1] = 'Outcome'
+      names(shots)[1] = 'outcome'
       
       #define number of bins for heatmap
       
@@ -666,7 +665,7 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
         #subset shots
         
         shots = dat[dat$player == name & dat$team == team,]
-        names(shots)[1] = 'Outcome'
+        names(shots)[1] = 'outcome'
         
         #define number of bins for heatmap
         
@@ -742,4 +741,3 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
     }
   
   }
-
