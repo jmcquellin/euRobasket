@@ -1,3 +1,4 @@
+
 #'Create dashboard to visualize shots
 #'
 #'This function creates dashboard from shots data loaded with get_shots_data_livefibaeurope()
@@ -320,58 +321,43 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
       
       if(input$chart_type == 'Scatter') {
         
-        plot = ggplot() +
-          annotation_custom(scatter, -60, 1570, -10, 1150) +
-          xlim(-60, 1570) +
-          ylim(-10, 1150) +
-          geom_point(data = shots, aes(x,y, colour = Outcome), size = 6, alpha = 0.7) +
-          geom_text(data = text_df, aes(x,y,label = lab), size = 7, colour = 'white', family = 'AvantGarde',fontface = 'plain') +
-          scale_color_manual(values = c('#27ae60', '#e74c3c')) +
-          guides(colour = FALSE) +
-          annotation_custom(rasterGrob(logo),
-                            xmin = 1200, xmax = 1500, ymin = 950, ymax = 1150) +
+        plot = ggplot(shots, aes(x=x, y=y)) +
+          annotation_custom(court) +
+          geom_point(aes(colour = outcome))
+        xlim(-60, 1570) +
+          ylim(-10, 1100) +
+          coord_fixed() +
+          ggtitle(paste("Shot Chart\n", unique(shots$Player), sep = "")) +
           theme(line = element_blank(),
                 axis.title.x = element_blank(),
                 axis.title.y = element_blank(),
                 axis.text.x = element_blank(),
-                panel.background = element_blank(),
                 axis.text.y = element_blank(),
-                panel.grid.major = element_blank(),
-                panel.grid.minor = element_blank(),
-                strip.background = element_blank(),
-                panel.spacing = element_blank(),
-                legend.position = 'bottom',
-                legend.background = element_blank())
-        
+                legend.title = element_blank(),
+                plot.title = element_text(size = 15, lineheight = 0.9, face = "bold"))
         print(plot)
+        
         
         #Heatmap
         
       } else if(input$chart_type == 'Heatmap') {
         
-        plot = ggplot(data = shots, aes(x,y)) +
-          annotation_custom(heatmap, -60, 1570, -10, 1150) +
+        plot = ggplot(shots, aes(x=x, y=y)) +
+          annotation_custom(court)  +
+          stat_binhex(bins = 25, colour = "gray", alpha = 0.7) +
+          scale_fill_gradientn(colours = c("yellow","orange","red")) +
+          guides(alpha = FALSE, size = FALSE) +
           xlim(-60, 1570) +
           ylim(-10, 1150) +
-          stat_density2d(aes(alpha =..level.., fill = ..level..), geom="polygon", bins = selected_bins, n = 500) +
-          scale_fill_gradient(low = '#FAFAFA', high = '#FFC107') +
-          scale_alpha(range = c(0, 0.8)) +
-          guides(alpha = FALSE, fill = FALSE) +
-          geom_text(data = text_df, aes(x,y,label = lab), size = 7, colour = 'white', family = 'AvantGarde',fontface = 'plain') +
-          annotation_custom(rasterGrob(logo),
-                            xmin = 1200, xmax = 1500, ymin = 950, ymax = 1150) +
+          coord_fixed() +
+          ggtitle(paste("Shot Chart\n", unique(shots$Player), sep = "")) +
           theme(line = element_blank(),
                 axis.title.x = element_blank(),
                 axis.title.y = element_blank(),
                 axis.text.x = element_blank(),
-                panel.background = element_blank(),
                 axis.text.y = element_blank(),
-                panel.grid.major = element_blank(),
-                panel.grid.minor = element_blank(),
-                strip.background = element_blank(),
-                panel.spacing = element_blank(),
-                legend.position = 'bottom',
-                legend.background = element_blank())
+                legend.title = element_blank(),
+                plot.title = element_text(size = 17, lineheight = 1.2, face = "bold"))
         print(plot)
       }
       
@@ -706,9 +692,8 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
           plot = ggplot(shots, aes(x=x, y=y)) +
             annotation_custom(court) +
             geom_point(aes(colour = outcome))
-          xlim(-60, 1570) +
-            ylim(-10, 1150) +
-            geom_rug(alpha = 0.2) +
+            xlim(-60, 1570) +
+            ylim(-10, 1100) +
             coord_fixed() +
             ggtitle(paste("Shot Chart\n", unique(shots$Player), sep = "")) +
             theme(line = element_blank(),
@@ -757,3 +742,4 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
     }
   
   }
+
