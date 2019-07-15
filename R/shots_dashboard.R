@@ -68,6 +68,11 @@ shots_dashboard = function(shots_df, dashboardTitle = 'Shots', save = FALSE, app
   heatmap = readPNG(system.file('data', 'heatmap.png', package = 'euRobasket'))
   heatmap = rasterGrob(heatmap, width = unit(1.0, 'npc'), height = unit(1.0, 'npc'))
   
+  # half court image
+  courtImg.URL <- "https://thedatagame.files.wordpress.com/2016/03/nba_court.jpg"
+  court <- rasterGrob(readJPEG(getURLContent(courtImg.URL)),
+                      width=unit(1,"npc"), height=unit(1,"npc"))
+  
   
   dat = shots_df
   players = unique(paste(dat$player,' ','(',dat$team, ')', sep = ''))
