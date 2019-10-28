@@ -1,3 +1,4 @@
+  
 #'Get stats for lineups from stints
 #'
 #'This function calculate stats for each lineup in stints.
@@ -42,10 +43,12 @@ home_lineups = paste(home_lineups[,1], home_lineups[,2], home_lineups[,3], home_
 home_counting = data.frame(team = stints.df$home_team,
                            team_pts = stints.df$home_pts,
                            team_poss = stints.df$home_possesions,
-                           opp_pts = stints.df$away_pts,
-                           opp_poss = stints.df$away_possesions,
                            team_fga2 = stints.df$home_2pt_fga,
                            team_fgm2 = stints.df$home_2pt_fgm,
+                           team_pfga = stints.df$home_patr_a,
+                           team_pfgm = stints.df$home_patr_m,
+                           opp_pfga = stints.df$away_patr_a,
+                           opp_pfgm = stints.df$away_patr_m,
                            team_fga3 = stints.df$home_3pt_fga,
                            team_fgm3 = stints.df$home_3pt_fgm,
                            team_fta = stints.df$home_fta,
@@ -57,8 +60,21 @@ home_counting = data.frame(team = stints.df$home_team,
                            team_ast = stints.df$home_assists,
                            team_stls = stints.df$home_steals,
                            team_blks = stints.df$home_blocks,
-                           team_tovs = stints.df$home_tovs,
-                           opp_fga = stints.df$away_2pt_fga+stints.df$away_3pt_fga)
+                           team_tovs = stints.df$home_tov,
+                           opp_fga2 = stints.df$away_2pt_fga,
+                           opp_fga3 = stints.df$home_3pt_fga,
+                           opp_pts = stints.df$away_pts,
+                           opp_poss = stints.df$away_possesions,
+                           team_ballhandling = stints.df$home_ballhandling,
+                           team_badpass = stints.df$home_badpass,
+                           team_oFoul = stints.df$home_oFoul,
+                           team_3sec = stints.df$home_3sec,
+                           team_8sec = stints.df$home_8sec,
+                           team_24sec = stints.df$home_24sec,
+                           opp_fga2 = stints.df$away_2pt_fga,
+                           opp_fga3 = stints.df$away_3pt_fga,
+                           opp_fgm2 = stints.df$away_2pt_fgm,
+                           opp_fgm3 = stints.df$away_3pt_fgm)
 
 home_lineups = data.frame(cbind(home_lineups, home_counting, stringsAsFactors = FALSE))
 names(home_lineups)[1] = 'lineup'
@@ -79,10 +95,12 @@ away_lineups = paste(away_lineups[,1], away_lineups[,2], away_lineups[,3], away_
 away_counting = data.frame(team = stints.df$away_team,
                            team_pts = stints.df$away_pts,
                            team_poss = stints.df$away_possesions,
-                           opp_pts = stints.df$home_pts,
-                           opp_poss = stints.df$home_possesions,
                            team_fga2 = stints.df$away_2pt_fga,
                            team_fgm2 = stints.df$away_2pt_fgm,
+                           team_pfga = stints.df$away_patr_a,
+                           team_pfgm = stints.df$away_patr_m,
+                           opp_pfga = stints.df$home_patr_a,
+                           opp_pfgm = stints.df$home_patr_m,
                            team_fga3 = stints.df$away_3pt_fga,
                            team_fgm3 = stints.df$away_3pt_fgm,
                            team_fta = stints.df$away_fta,
@@ -95,7 +113,20 @@ away_counting = data.frame(team = stints.df$away_team,
                            team_stls = stints.df$away_steals,
                            team_blks = stints.df$away_blocks,
                            team_tovs = stints.df$away_tovs,
-                           opp_fga = stints.df$home_2pt_fga+stints.df$home_3pt_fga)
+                           opp_fga2 = stints.df$home_2pt_fga,
+                           opp_fga3 = stints.df$home_3pt_fga,
+                           opp_pts = stints.df$home_pts,
+                           opp_poss = stints.df$home_possesions,
+                           team_ballhandling = stints.df$away_ballhandling,
+                           team_badpass = stints.df$away_badpass,
+                           team_oFoul = stints.df$away_oFoul,
+                           team_3sec = stints.df$away_3sec,
+                           team_8sec = stints.df$away_8sec,
+                           team_24sec = stints.df$away_24sec,
+                           opp_fga2 = stints.df$home_2pt_fga,
+                           opp_fga3 = stints.df$home_3pt_fga,
+                           opp_fgm2 = stints.df$home_2pt_fgm,
+                           opp_fgm3 = stints.df$home_3pt_fgm)
 
 away_lineups = data.frame(cbind(away_lineups, away_counting, stringsAsFactors = FALSE))
 names(away_lineups)[1] = 'lineup'
@@ -132,15 +163,23 @@ for(i in 1:length(unique(lineups_df$team))) {
     #calculate shooting stats
     team_fga = sum(lineup_dat$team_fga2) + sum(lineup_dat$team_fga3)
     
+    team_fgm = sum(lineup_dat$team_fgm2) + sum(lineup_dat$team_fgm3)
+    
+    opp_fga = sum(lineup_dat$opp_fga2) + sum(lineup_dat$opp_fga3)
+    
+    opp_fgm = sum(lineup_dat$opp_fgm2) + sum(lineup_dat$opp_fgm3)
+    
    `team_fg%` = round(100*((sum(lineup_dat$team_fgm2) +  sum(lineup_dat$team_fgm3))/team_fga),2)
 
+   `team_paint_fg%` = round(100*((sum(lineup_dat$team_pfgm)/sum(lineup_dat$team_pfga))))
+    
    `team_3p%` = round(100*(sum(lineup_dat$team_fgm3)/sum(lineup_dat$team_fga3)))
 
    `team_ft%` = round(100*(sum(lineup_dat$team_ftm)/sum(lineup_dat$team_fta)))
 
    `team_ts%` = round(100*(sum(lineup_dat$team_pts)/(2*(team_fga + 0.44*sum(lineup_dat$team_fta)))),2)
 
-   `%fgm_ast` = round(100*(sum(lineup_dat$team_ast)/(sum(lineup_dat$team_fgm2) +  sum(lineup_dat$team_fgm3))),2)
+   `%fgm_as` = round(100*(sum(lineup_dat$team_ast)/(sum(lineup_dat$team_fgm2) +  sum(lineup_dat$team_fgm3))),2)
 
     #calculate playmaking stats
     ast_rate = round(100*(sum(lineup_dat$team_ast)/sum(lineup_dat$team_poss)),2)
@@ -169,7 +208,14 @@ for(i in 1:length(unique(lineups_df$team))) {
                           team_drtg,
                           team_netrtg,
                           team_fga,
-                          `team_fg%`,
+                          team_fgm,
+                          opp_fga,
+                          opp_fgm,
+                          opp_pts = sum(lineup_dat$opp_pts),
+                          team_pts = sum(lineup_dat$team_pts),
+                          team_pfga = sum(lineup_dat$team_pfga),
+                          team_pfgm = sum(lineup_dat$team_pfgm),
+                          `team_paint_fg%`,
                           `team_3p` = sum(lineup_dat$team_fga3),
                           `team_3pm` = sum(lineup_dat$team_fgm3),
                           `team_3p%`,
@@ -177,7 +223,7 @@ for(i in 1:length(unique(lineups_df$team))) {
                           team_ftm = sum(lineup_dat$team_ftm),
                           `team_ft%`,
                           `team_ts%`,
-                          `%fgm_ast`,
+                          `%fgm_as`,
                           team_ast = sum(lineup_dat$team_ast),
                           ast_rate,
                           team_tovs = sum(lineup_dat$team_tovs),
@@ -192,7 +238,13 @@ for(i in 1:length(unique(lineups_df$team))) {
                           blk_rate,
                           `%opp_fga_blocked`,
                           team_stls = sum(lineup_dat$team_stls),
-                          stl_rate)
+                          stl_rate,
+                          team_ballhandling = sum(lineup_dat$team_ballhandling),
+                          team_badpass = sum(lineup_dat$team_badpass),
+                          team_oFoul = sum(lineup_dat$team_oFoul),
+                          team_3sec = sum(lineup_dat$team_3sec),
+                          team_8sec = sum(lineup_dat$team_8sec),
+                          team_24sec = sum(lineup_dat$team_24sec))
 
     names(stats_df) = c('Lineup',
                         'Team',
@@ -201,7 +253,14 @@ for(i in 1:length(unique(lineups_df$team))) {
                         'DRtg',
                         'NetRtg',
                         'FGA',
-                        'FG%',
+                        'FGM',
+                        'Opp FGA',
+                        'Opp FGM',
+                        'Opp Points',
+                        'Points',
+                        'Shots at the rim',
+                        'Makes at the rim',
+                        'Rim FG%',
                         '3PA',
                         '3PM',
                         '3P%',
@@ -224,7 +283,13 @@ for(i in 1:length(unique(lineups_df$team))) {
                         'BLk Rate',
                         '%Opponent FGA Blocked',
                         'STL',
-                        'STL Rate')
+                        'STL Rate',
+                        'TO - Ballhandling',
+                        'TO - Bad Pass',
+                        'TO - Offensive Foul',
+                        'TO - 3 Sec',
+                        'TO - 8 Sec',
+                        'TO - 24 Sec')
 
   team_lineup_dat = rbind(team_lineup_dat, stats_df)
   }
