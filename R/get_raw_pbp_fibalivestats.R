@@ -42,7 +42,8 @@ get_raw_pbp_fibalivestats = function(gameid) {
   #remove numbers from players names
   pbp$player = gsub('[0-9]', '', pbp$player)
   pbp$player = gsub(', ','', pbp$player)
-
+  
+  pbp$player = str_to_sentence(pbp$player)
   #arrange play by play
 
   pbp = arrange(pbp, period, desc(gt))
