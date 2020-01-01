@@ -66,11 +66,13 @@ get_stints_fibalivestats = function(gameid) {
   #extract rows numbers when substitution starts, subType == 'in'
   subs_in_rows = as.numeric(rownames(pbp[pbp$actionType == 'substitution' & pbp$subType == 'in',]))
   
+  subs_out_rows = as.numeric(rownames(pbp[pbp$actionType == 'substitution' & pbp$subType == 'out',]))
+  
   subs = data.frame(row_in = subs_in_rows,
-                    row_out = subs_in_rows+1)
+                    row_out = subs_out_rows)
   
   #check if subs$row_out subType is 'out', filter out sub of true
-  subs = subs[which(pbp$subType[subs$row_out]=='out'),]
+  #subs = subs[which(pbp$subType[subs$row_out]=='out'),]
   
   #add player in, player out and team
   subs$player_in = pbp$player[subs$row_in]
@@ -164,15 +166,15 @@ get_stints_fibalivestats = function(gameid) {
     home_pts = (home_2pt_fgm*2) + (home_3pt_fgm*3) + home_ftm
     
     #turnover types
-     home_ballhandling = nrow(home_actions[home_actions$subType ==  "ballhandling"|home_actions$subType == "doubledribble"|home_actions$subType == "travel",])
-     home_badpass = nrow( home_actions[home_actions$subType ==  "badpass",])
-     home_oFoul = nrow(home_actions[home_actions$subType ==  "offensive",])
-     home_3sec =nrow( home_actions[home_actions$subType ==  "3sec",])
-     home_8sec = nrow(home_actions[home_actions$subType ==  "8sec",])
-     home_24sec = nrow(home_actions[home_actions$subType ==  "24sec",])
-
-                  
-
+    home_ballhandling = nrow(home_actions[home_actions$subType ==  "ballhandling"|home_actions$subType == "doubledribble"|home_actions$subType == "travel",])
+    home_badpass = nrow( home_actions[home_actions$subType ==  "badpass",])
+    home_oFoul = nrow(home_actions[home_actions$subType ==  "offensive",])
+    home_3sec =nrow( home_actions[home_actions$subType ==  "3sec",])
+    home_8sec = nrow(home_actions[home_actions$subType ==  "8sec",])
+    home_24sec = nrow(home_actions[home_actions$subType ==  "24sec",])
+    
+    
+    
     #create data.frame with actions
     home = data.frame(cbind(
       home_pts,
@@ -288,24 +290,24 @@ get_stints_fibalivestats = function(gameid) {
       away_8sec,
       away_24sec))
     
-  #calculate away possesions
-  away$away_possesions = ((away$away_2pt_fga+away$away_3pt_fga) + away$away_tovs + (0.44*away$away_fta) - away$away_orebs)
-  away$away_possesions[away$away_possesions < 0] = 0
-  #combine home and away
-  stint_data = cbind(home, away)
-
-  #NaNs to 0
-  stint_data[stint_data == 'NaN'] = 0
-
-  return(stint_data)
-}
+    #calculate away possesions
+    away$away_possesions = ((away$away_2pt_fga+away$away_3pt_fga) + away$away_tovs + (0.44*away$away_fta) - away$away_orebs)
+    away$away_possesions[away$away_possesions < 0] = 0
+    #combine home and away
+    stint_data = cbind(home, away)
+    
+    #NaNs to 0
+    stint_data[stint_data == 'NaN'] = 0
+    
+    return(stint_data)
+  }
   
   #create stints data.frame
   #first row
   first_row_start = 1
   first_row_end = subs$row_in[1]-1
   stints.df = cbind(players_on_court, get_stint_data(first_row_start, first_row_end))
-    
+  
   
   
   #loop for all other substitutions
